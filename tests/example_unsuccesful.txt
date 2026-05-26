@@ -1,0 +1,8 @@
+int x;
+int x;
+z = 5;
+int y;
+y = 3.14;
+if (y > ) {
+    print("test");
+}

@@ -1,0 +1,4 @@
+int x = 10 @;
+float y = 5.5;
+string s = "this is an unclosed string
+float z = # 3.14;
