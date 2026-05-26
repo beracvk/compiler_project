@@ -3,8 +3,8 @@ Language Grammar (BNF)
 Based Structure and Blocks
 <program> ::= <statement_list>
 
-<statement_list> ::= <statement> 
-                   | <statement> <statement_list>
+<statement_list> ::= <statement> <statement_list>
+                   | ""
 
 <statement> ::= <var_declaration> 
               | <assignment> 
@@ -26,27 +26,27 @@ Control Structures
 
 <while_statement> ::= "while" "(" <expression> ")" <block>
 
-<print_statement> ::= "print" "(" <print_value> ")" ";"
-<print_value> ::= <expression> | <string_literal>
+<print_statement> ::= "print" "(" <expression> ")" ";"
 
 Mathematical Expressions and Numbers
 <expression> ::= <arithmetic_expr> 
                | <arithmetic_expr> <relational_op> <arithmetic_expr>
 
-<arithmetic_expr> ::= <term> 
-                    | <term> <add_op> <arithmetic_expr>
+<arithmetic_expr> ::= <arithmetic_expr> <add_op> <term>
+                    | <term>
 
-<term> ::= <factor> 
-         | <factor> <mult_op> <term>
+<term> ::= <term> <mult_op> <factor>
+         | <factor>
 
 <factor> ::= <identifier> 
            | <number>
+           | <string_literal>
 
 <relational_op> ::= ">" | "<" | "==" | ">=" | "<=" | "!="
 <add_op> ::= "+" | "-"
 <mult_op> ::= "*" | "/"
 
-<identifier> ::= [a-zA-Z][a-zA-Z0-9_]*
+<identifier> ::= [a-zA-Z_][a-zA-Z0-9_]*
 <number> ::= [0-9]+ 
            | [0-9]+ "." [0-9]+
 <string_literal> ::= '"' [Herhangi Karakterler] '"'
