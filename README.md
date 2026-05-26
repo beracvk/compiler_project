@@ -13,9 +13,9 @@ Based Structure and Blocks
               | <print_statement>
 
 <block> ::= "{" <statement_list> "}"
-
 Variable Definition and Assignment
 <var_declaration> ::= <type> <identifier> ";"
+                    | <type> <identifier> "=" <expression> ";"
 <type> ::= "int" | "float"
 
 <assignment> ::= <identifier> "=" <expression> ";"

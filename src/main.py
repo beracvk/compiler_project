@@ -166,5 +166,12 @@ def main():
         print(f" {icon} {tf:<30} : {status}")
     print("=" * 65)
 
+    print("\nLaunching GUI...")
+    try:
+        from ui.ui import main as launch_ui
+        launch_ui()
+    except Exception as e:
+        print(f"Error launching GUI: {e}")
+
 if __name__ == "__main__":
     main()

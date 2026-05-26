@@ -16,13 +16,17 @@ class ProgramNode(ASTNode):
 
 class VariableDeclarationNode(ASTNode):
     """int x; veya float y; gibi tanımlamaları temsil eder."""
-    def __init__(self, datatype, var_name, line):
+    def __init__(self, datatype, var_name, line, initial_value=None):
         self.datatype = datatype  # "int" veya "float"
         self.var_name = var_name  # "x", "sayi" vb.
         self.line = line
+        self.initial_value = initial_value
 
     def to_dict(self):
-        return {"Node": "VariableDeclaration", "Type": self.datatype, "Name": self.var_name, "Line": self.line}
+        res = {"Node": "VariableDeclaration", "Type": self.datatype, "Name": self.var_name, "Line": self.line}
+        if self.initial_value:
+            res["Value"] = self.initial_value.to_dict()
+        return res
 
 class AssignmentNode(ASTNode):
     """x = 5; veya y = 3.14; gibi değer atamalarını temsil eder."""

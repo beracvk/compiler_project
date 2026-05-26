@@ -65,11 +65,24 @@ class Parser:
     def parse_var_declaration(self):
         type_token = self.match("KEYWORD")
         var_token = self.match("IDENTIFIER")
-        self.match("DELIMITER", ";")
-
-        # Sembol tablosuna değişkeni kaydediyoruz
+        
+        # Sembol tablosuna değişkeni önce kaydediyoruz (böylece atama varsa tip kontrolü yapılabilir)
         self.symbol_table.insert(var_token['value'], type_token['value'], var_token['line'])
-        return VariableDeclarationNode(type_token['value'], var_token['value'], type_token['line'])
+        
+        init_expr = None
+        token = self.current_token()
+        if token and token['type'] == "OPERATOR" and token['value'] == "=":
+            self.match("OPERATOR", "=")
+            init_expr = self.parse_expression()
+            
+            if isinstance(init_expr, LiteralNode):
+                try:
+                    self.semantic_analyzer.check_type_mismatch(var_token['value'], init_expr.value_type, var_token['line'])
+                except AttributeError:
+                    pass
+                    
+        self.match("DELIMITER", ";")
+        return VariableDeclarationNode(type_token['value'], var_token['value'], type_token['line'], init_expr)
 
     def parse_assignment(self):
         var_token = self.match("IDENTIFIER")
